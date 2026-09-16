@@ -1,0 +1,12 @@
+{
+  "name": "quickmart-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Azure App Service hosting for the Flutter web build",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

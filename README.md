@@ -192,6 +192,28 @@ flutter run -d chrome
 4. Configure email authentication under **Authentication → Providers → Email**.
 5. Copy the project URL and public client key into `supabase_config.dart`.
 
+## Express API for Azure PostgreSQL
+
+The repository also contains an Express API in `server.js`. It serves the Flutter web build and exposes the PostgreSQL-backed API under `/api`.
+
+1. Create an Azure Database for PostgreSQL Flexible Server.
+2. Run [`server/schema.sql`](server/schema.sql) on the Azure database.
+3. Copy `.env.example` to `.env` and set `DATABASE_URL` and a long random `JWT_SECRET`.
+4. Install dependencies and deploy the schema:
+
+```bash
+npm install
+npm run db:migrate
+```
+
+5. Start the API:
+
+```bash
+npm start
+```
+
+Available endpoints include `/api/auth/register`, `/api/auth/login`, `/api/products`, `/api/cart`, `/api/orders`, and `/api/health`. Set the same values as App Service application settings for Azure deployment. For EmailJS order confirmations, also configure `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY`, and optionally `EMAILJS_PRIVATE_KEY`. The Flutter services still use Supabase at present and must be switched to these endpoints before removing Supabase from the app.
+
 The schema creates a trigger that automatically creates a `profiles` row when a user signs up. It also enables RLS policies for user-owned carts/orders and admin-only product writes.
 
 ### Create an admin user

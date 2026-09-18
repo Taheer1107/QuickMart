@@ -25,14 +25,8 @@ class _SignupScreenState extends State<SignupScreen> {
       _message = null;
     });
     try {
-      final response =
-          await AuthService.signUp(_emailController.text.trim(), _passwordController.text.trim());
-      if (response.session == null) {
-        // Email confirmation is enabled on the Supabase project by default.
-        setState(() => _message = 'Account created. Check your email to confirm it, then log in.');
-      } else if (mounted) {
-        Navigator.pop(context);
-      }
+      await AuthService.signUp(_emailController.text.trim(), _passwordController.text.trim());
+      if (mounted) Navigator.pop(context);
     } catch (e) {
       setState(() => _error = 'Sign up failed. Try a different email or a longer password.');
     } finally {
@@ -111,8 +105,8 @@ class _SignupScreenState extends State<SignupScreen> {
             TextFormField(
               controller: _passwordController,
               obscureText: _obscurePassword,
-              decoration: InputDecoration(hintText: 'At least 6 characters', hintStyle: TextStyle(color: Colors.grey[400], fontSize: 12), fillColor: lightPeach, filled: true, prefixIcon: Icon(Icons.lock_outline_rounded, color: coral, size: 19), suffixIcon: IconButton(icon: Icon(_obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: coral, size: 19), onPressed: () => setState(() => _obscurePassword = !_obscurePassword)), border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none), contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14)),
-              validator: (value) => value == null || value.length < 6 ? 'Use at least 6 characters' : null,
+              decoration: InputDecoration(hintText: 'At least 8 characters', hintStyle: TextStyle(color: Colors.grey[400], fontSize: 12), fillColor: lightPeach, filled: true, prefixIcon: Icon(Icons.lock_outline_rounded, color: coral, size: 19), suffixIcon: IconButton(icon: Icon(_obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: coral, size: 19), onPressed: () => setState(() => _obscurePassword = !_obscurePassword)), border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none), contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14)),
+              validator: (value) => value == null || value.length < 8 ? 'Use at least 8 characters' : null,
             ),
             if (_error != null) ...[const SizedBox(height: 12), Text(_error!, style: TextStyle(color: coral, fontSize: 12, fontWeight: FontWeight.w600))],
             if (_message != null) ...[const SizedBox(height: 12), Text(_message!, style: TextStyle(color: Color(0xFF176B45), fontSize: 12, fontWeight: FontWeight.w600))],

@@ -20,7 +20,7 @@ class Product {
     );
   }
 
-  // Sent to Supabase on insert — id and created_at are handled by the DB.
+  // Sent to the API on insert — id and created_at are handled by the DB.
   Map<String, dynamic> toInsertMap() {
     return {
       'name': name,

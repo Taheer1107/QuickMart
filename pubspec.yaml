@@ -10,8 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  supabase_flutter: ^2.6.0
+  http: ^1.2.2
   provider: ^6.1.1
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

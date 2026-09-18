@@ -1,7 +1,7 @@
 import 'product.dart';
 
 class CartItem {
-  final int id; // cart_items row id in Supabase
+  final int id;
   final Product product;
   final int quantity;
 
@@ -12,7 +12,9 @@ class CartItem {
   static CartItem fromMap(Map<String, dynamic> map) {
     return CartItem(
       id: map['id'] as int,
-      product: Product.fromMap(map['products'] as Map<String, dynamic>),
+      product: Product.fromMap(
+        (map['product'] ?? map['products']) as Map<String, dynamic>,
+      ),
       quantity: map['quantity'] as int,
     );
   }
